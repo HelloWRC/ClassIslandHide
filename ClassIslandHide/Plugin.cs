@@ -14,6 +14,7 @@ using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
 using ClassIsland.Shared.Helpers;
+using HarmonyLib;
 
 namespace ClassIslandHide;
 
@@ -24,9 +25,15 @@ public class Plugin : PluginBase
 
     public override void Initialize(HostBuilderContext context, IServiceCollection services)
     {
+        var harmony = new Harmony("dev.hellowrc.classislandHide");
+        harmony.PatchAll();
         Settings = ConfigureFileHelper.LoadConfig<Settings>(Path.Combine(PluginConfigFolder, "Settings.json"));
         Settings.PropertyChanged += (sender, args) =>
             ConfigureFileHelper.SaveConfig(Path.Combine(PluginConfigFolder, "Settings.json"), Settings);
+
+#if DEBUG
+        return;
+#endif
         var path = Environment.ProcessPath?.Replace(".dll", ".exe");
         //Debugger.Break();
         if (path != null && path != Settings.LastGhostExePath)
@@ -64,25 +71,7 @@ public class Plugin : PluginBase
             File.Copy(Path.GetFullPath(path!), Settings.RawExePath, true);
         }
 
-        EventManager.RegisterClassHandler(
-            typeof(Window),                 // 目标类型
-            FrameworkElement.LoadedEvent,             // 路由事件
-            new RoutedEventHandler(OnWindowLoaded) // 事件处理程序
-        );
         //CommonDialog.ShowHint("123");
-    }
-
-    private void OnWindowLoaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is not Window window)
-        {
-            return;
-        }
-
-
-        window.Title = GetRandomString("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-[]\\';\":/.,?><");
-
-        var result = PInvoke.SetWindowDisplayAffinity((HWND)new WindowInteropHelper(window).Handle, WINDOW_DISPLAY_AFFINITY.WDA_EXCLUDEFROMCAPTURE);
     }
 
     public static string GetRandomString(string chars)
