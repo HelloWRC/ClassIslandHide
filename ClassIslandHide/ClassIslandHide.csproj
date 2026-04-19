@@ -1,22 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableDynamicLoading>True</EnableDynamicLoading>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ClassIslandPluginSdkVersion>1.6.0.3</ClassIslandPluginSdkVersion>
+		<ClassIslandPluginSdkVersion>2.0.0.2</ClassIslandPluginSdkVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="ClassIsland.PluginSdk" Version="$(ClassIslandPluginSdkVersion)">
 			<ExcludeAssets>runtime; native</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="Lib.Harmony.Thin" Version="2.3.6" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

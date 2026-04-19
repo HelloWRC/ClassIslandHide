@@ -4,15 +4,9 @@ using System.IO;
 using ClassIsland.Core;
 using ClassIsland.Core.Abstractions;
 using ClassIsland.Core.Attributes;
-using ClassIsland.Core.Controls.CommonDialog;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Security.Cryptography;
-using System.Windows;
-using System.Windows.Interop;
-using Windows.Win32;
-using Windows.Win32.Foundation;
-using Windows.Win32.UI.WindowsAndMessaging;
 using ClassIsland.Shared.Helpers;
 using HarmonyLib;
 
